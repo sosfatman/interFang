@@ -7,11 +7,15 @@ body,html{
     margin:0;
 }
 
+.logo p{
+    display: inline-block;
+    height:50px;
+    line-height: 50px;
+}
+
 .logo>img{
     margin: 5px;
 }
-
-
 
 .navbar{
     float:right;
@@ -30,6 +34,7 @@ body,html{
     margin:0px 10px 0px 10px;
     border-radius:5px;
     height:50px;
+    line-height: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -51,12 +56,12 @@ body,html{
 
 .body-container{
     margin-left:calc(100%*1/12);
-     margin-right:calc(100%*1/12);
+    margin-right:calc(100%*1/12);
 }
 
 .jumbotron{
     display: block;
-   margin:calc(100%*1/12);
+    margin-top:calc(100%*3/12);
     height:100%;
     background-image: url("/img/cover-0.jpg");
     background-size: cover;
@@ -111,7 +116,6 @@ body,html{
 
 }
 
-/*Resize the wrap to see the search bar change!*/
 .wrap{
   width: 30%;
   position: absolute;
@@ -130,19 +134,23 @@ body,html{
   vertical-align: middle;
 }
 
+.browse-container{
+    margin-top:calc(100%*4/12);
+}
+
 .browse-1{
     margin:60px;
 }
 
 .row{
     display: table;
-    width: 100%; /*Optional*/
-    table-layout: fixed; /*Optional*/
-    border-spacing: 10px; /*Optional*/
+    width: 100%; 
+    table-layout: fixed; 
+    border-spacing: 10px;
 }
 .col-lg-3{
     display: table-cell;
-    background-color:grey; /*Optional*/
+    background-color:grey; 
 }
 
 .footer-container{

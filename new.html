@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>New-FBfunction</title>
+</head>
+
+<body>
+    <div id="fb-root"></div>
+    <script>
+        //facebook透過以下方式認證的：
+        //https://graph.facebook.com/使用者的id?access_token=鑰匙
+        function statusChangeCallback(response) {
+            console.log(response);
+            let welcome = document.getElementById("welcome");
+            let main = document.getElementById("main");
+            main.style.display = welcome.style.display = "none";
+            console.log('statusChangeCallback');
+            console.log(response);
+            // The response object is returned with a status field that lets the
+            // app know the current login status of the person.
+            // Full docs on the response object can be found in the documentation
+            // for FB.getLoginStatus().
+            if (response.status === 'connected') { //使用者已授權
+                // Logged into your app and Facebook.
+                main.style.display = "block";
+                initMain();
+
+                // testAPI(); //開始主程式
+            } else { //使用者未授權 -> 鼓勵使用者授權
+                // The person is not logged into your app or we are unable to tell.
+                document.getElementById('status').innerHTML = 'Please log ' +
+                    'into this app.';
+                welcome.style.display = "block";
+            }
+        }
+
+        //取得使用者所有的公開資料
+        function initMain() {
+            FB.api("/me/feed?fields=likes.limit(5)&limit=5", function (response) { //印出按讚者
+                let posts = response.data;//所有的文章是一個陣列
+                for (let i = 0; i < posts.length; i++) {
+                    let likes = posts[i].likes;
+                    if (likes) {//文章沒有人按讚，則likes欄位為空，因此此動作確認有人按讚
+                        for (let j = 0; j < likes.data.length; j++) {
+                            //console.log(likes.data[j]);
+                            addLikes(likes.data[j]);
+                        }
+                    }
+                }
+                //印出最後資料
+                console.log(data);
+
+                data.sort(function (l1, l2) {
+                    return l2.count - l1.count;
+                });
+                showLikes();
+            });
+        }
+
+
+        function showLikes() {
+            let main = document.getElementById("main");
+            for (let i = 0; i < data.length; i++) {
+                main.innerHTML += data[i].name.bold() + ":" + data[i].count + "<br/>";
+            }
+        }
+
+        //排依照count的大小排序
+        //透過js內建的sort()
+        /*
+        EX:
+        let a = [10, 2, 7, 5]
+        a.sort(function (n1, n2) {//比較元素大小用的函式
+            return n1 - n2;
+        });
+        console.log(a);
+        */
+        /*
+        let l = 0;
+        function rank() {
+            for (let i = 0; i < data.length; i++) {
+                for(let j=i+1;j<data.length;j++ ){
+
+                }
+                if (data[j].count >= data[j - 1].count) {
+                    l = data[j];
+                    data[j] = data[j - 1];
+                    main.innerHTML += data[j].name.bold() + ":" + data[j].count + "<br/>";
+                }
+            }
+        }
+        */
+
+        let data = []; //全域變數data是一個空陣列
+        function addLikes(like) {
+            data.push({ id: like.id, name: like.name, count: 1 });
+            //做次數的統計功能
+            //偵測使用者是否已經存在
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].id == like.id) { //使用者已經存在
+                    data[i].count++;
+                    return;
+                }
+            }
+            //不存在，新增一筆資料
+        }
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.11&appId=402642790191984';
+            //在網址列可轉換語言"zh_TW"
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        /*原始資料：
+        {
+            data:[
+                {
+                    id:編號,
+                    likes:{
+                        data:[
+                             {id:使用者編號,name:名字},
+                             {id:使用者編號,name:名字},
+                             {id:使用者編號,name:名字}...
+                        ]
+                    }
+                }
+            ]
+        }
+        */
+
+        /*整理一下->期望中(我們需要的)資料樣式：
+        [
+            {id:使用者編號,name:名字,count:按讚的次數},
+            {id:使用者編號,name:名字,count:按讚的次數}
+        ]
+        */
+
+        window.fbAsyncInit = function () {
+            //初始化Facebook套件(ex:你是誰，版本)
+            FB.init({
+                appId: '402642790191984', //應用程式的金鑰要對應！！
+                cookie: true,  // enable cookies to allow the server to access 
+                // the session
+                xfbml: true,  // parse social plugins on this page
+                version: 'v2.8' // use graph api version 2.8
+            });
+        }
+
+        function login() {
+            FB.login(function (response) {
+                statusChangeCallback(response);
+            }, {
+                    scope: "public_profile,email,user_likes,user_posts,publish_actions"
+
+                }); //FB內建的登入套件
+        }
+
+        function checkLoginState() {
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+        }
+
+        function publish() {
+            FB.api("/me/feed", "POST", { message: "發文的文字在這裡！" }, function (response) {
+                console.log(response);//通常回傳發文的id而不是文字
+            }); //post：發布資料;get:取得資料
+
+            //粉絲專業的資訊
+            FB.api("/NTUHaters2.1/feed", function (response) {
+                console.log(response);
+            });
+        }
+
+        //取得粉專管理員的授權
+        //取得粉專的鑰匙
+        //取得使用者管理的粉專列表，同時取得粉專的access_token
+        function page() {
+            FB.api("/me/feed", "POST", { message: "發文的文字在這裡！" }, function (response) {
+                console.log(response);//通常回傳發文的id而不是文字
+            }); //post：發布資料;get:取得資料
+
+            //可額外指定我們要使用的access_token
+            // /粉專名稱或id編碼/feed?access_token=
+            //粉絲專業的資訊
+            FB.api("/NTUHaters2.1/feed?access_token=", function (response) {
+                console.log(response);
+            });
+        }
+    </script>
+
+    <div id="status">
+    </div>
+
+    <div id="welcome" style="display:block">
+        <button onclick="login();">Login</button>
+    </div>
+
+    <div id="main" style="display:block">
+        <button onclick="publish();">Publish</button>
+    </div>
+
+</body>
+
+</html>

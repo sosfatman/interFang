@@ -10,50 +10,305 @@
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="./main.js"></script>
+    <script>
+        $(function () {
+            $(document).keypress(function (e) {
+                cwrite(e.which, 'Keypress event');
+                if (e.which == 120) custom_dialog_toggle('Keypress x', 'You opened this window by pressing x');
+            });
+        });
+        function custom_dialog_toggle(title, text, buttons) {
+            if (typeof title !== 'undefined') $('#dlg-header').html(title);
+            if (typeof text !== 'undefined') $('#dlg-content').html(text);
+            cwrite('Current state: ' + $('#dialog_state').prop("checked"), 'custom_dialog_toggle');
+            $('#dialog_state').prop("checked", !$('#dialog_state').prop("checked"));
+        }
+        // Console logging function for debugging
+        // cwrite(str, title)
+        //      str:              string to be appended to console
+        //      title (optional): title of the string
+        // (c)  Tuomas Hatakka 2015
+        //      http://tuomashatakka.fi
+        function cwrite(str, title) {
+            var ce = $('#console');
+            var sg = "<p>";
+            if (typeof title !== 'undefined') sg = sg + "<em>" + title + "</em> ";
+            sg = sg + str + "</p>";
+            ce.prepend(sg);
+            //if(ce.children("p").length>6) ce.children("p").first().remove();
+        }
+    </script>
+
+    <style>
+        #console {
+            display: none;
+        }
+
+        #dialog {
+            position: absolute;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.15);
+            transition: visibility 0s linear 0.5s, opacity 0.5s linear;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .dialog_state {
+            visibility: hidden;
+            opacity: 0;
+            display: none;
+        }
+
+        .dialog_state:checked+#dialog,
+        #dialog.dialog_open {
+            transition-delay: 0s;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #dlg-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            width: 100vw;
+            height: 100vh;
+            cursor: pointer;
+        }
+
+        .dialog_state:checked+#dialog #dlg-wrap {
+            max-height: 24rem;
+            opacity: 1;
+            padding: 2rem;
+        }
+
+        #dlg-wrap {
+            position: relative;
+            z-index: 1;
+            display: block;
+            box-sizing: border-box;
+            margin: 0 auto;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 640px;
+            padding: 2rem;
+            border-radius: 0.25rem;
+            /*border: 1px solid #969696;*/
+            background: #fff;
+            box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.3);
+            max-height: 0;
+            opacity: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            overflow: hidden;
+            transition: all .5s;
+        }
+
+        #dlg-close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 2rem;
+            height: 2rem;
+            line-height: 2rem;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        h2#dlg-header {
+            font: 200 2em/1em Raleway, Open Sans, Arial, Sans-Serif;
+            text-transform: initial;
+            letter-spacing: -0.025em;
+            margin: 0 0 1rem;
+        }
+
+        #dlg-content {
+            font-weight: 300;
+            font-style: italic;
+            letter-spacing: 0.015em;
+        }
+
+        #dlg-prompt .button {
+            margin: 1rem 0.5rem;
+            border-radius: 1.5rem;
+        }
+
+
+
+        .main_area {
+            transition: all 0.5s ease-out;
+        }
+
+        .dialog_state:checked~.main_area,
+        .main_area.dialog_open {
+            filter: blur(6px);
+        }
+
+        .button,
+        a.button {
+            display: inline-block;
+            padding: 0.25em 1em;
+            box-sizing: border-box;
+
+            background: #ffffff;
+            color: #606060;
+            text-decoration: none;
+            letter-spacing: 0.075em;
+            line-height: 2rem;
+            font-family: Raleway, Open Sans, Arial;
+            font-weight: 300;
+            font-size: 0.85em;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+
+            transition: .1s all;
+            cursor: pointer;
+        }
+
+        .button:hover,
+        a.button:hover {
+            color: #a0a0a0;
+            background: #f8f8f8;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+            /*transform: scale(1.01);*/
+        }
+
+        .button.positive,
+        a.button.positive {
+            border-color: #6199B7;
+            color: #6199B7;
+        }
+
+        .button.positive:hover,
+        a.button.positive:hover {
+            border-color: #468FB6;
+            color: #fff;
+            background-color: #468FB6;
+        }
+
+        .icon {
+            vertical-align: middle;
+            line-height: inherit;
+            font-size: 1.75em;
+        }
+
+        body {
+            font: 400 16px/1.65em Open Sans, Arial, Sans-Serif;
+            letter-spacing: -0.015em;
+            color: #303030;
+            text-align: center;
+        }
+        /*
+        #main {
+            height: 100vh;
+            width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+            background: url("https://farm6.staticflickr.com/5688/21515632899_94e4ddb78a_o.jpg") no-repeat center center;
+            background-size: cover;
+        }
+*/
+
+        #main .center {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+        }
+
+        h1 {
+            font: 900 6.4em/1em Raleway, Open Sans, Arial, Sans-Serif;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            margin: 2rem 0 0.5rem;
+        }
+
+        h2 {
+            font: 800 2em/1em Raleway, Open Sans, Arial, Sans-Serif;
+            text-transform: uppercase;
+            letter-spacing: 0.0em;
+            margin: 2rem 0 0.5rem;
+        }
+        /* Console */
+
+        #console {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            box-sizing: border-box;
+            background: #f0f0f0;
+            color: #606060;
+            font: 400 13px/16px Open Sans;
+            letter-spacing: 0em;
+            text-align: left;
+            padding: 2px;
+            overflow-y: scroll;
+            0
+        }
+
+        #console p {
+            margin: 0;
+            padding: 0;
+        }
+
+        #console p em {
+            font-style: none;
+            font-weight: 700;
+        }
+    </style>
 </head>
 
 <body>
+    <div id="main">
+        <div class="body-container">
+            <!--navbar start-->
+            <nav>
+                <div class="navbar-row">
+                    <span class="logo"><img src="./img/logo.png"  height="50px" alt="logo"></span>
+                    <span class="navbar">
+                    <span><a href="#">POST</a></span>
+                    <span><a href="#">CHAT</a></span>
+                    <span><a href="#">PROFILE</a></span>
+                    <span> <main id='main' class='main_area'>
+            <label class="button" for="dialog_state"><i class="icon ion-ios-upload-outline
+      "></i> Login</label>
+     
+        <div id='console'></div>
+    </main></span>
+                </div>
+            </nav>
+            <!--navbar end-->
 
-    <!--navbar start-->
-    <div class="body-container">
-        <nav>
-            <div class="navbar-row">
-                <span class="logo"><img src="./img/logo.png"  height="50px" alt="logo">InterFang</span>
-                <span class="navbar">
-                <span><a href="#">POST</a></span>
-                <span><a href="#">CHAT</a></span>
-                <span><a href="#">PROFILE</a></span>
-                <span><a href="./login.html" onclick="login();">LOGIN</a></span>
-                </span>
-            </div>
-        </nav>
-        <!--navbar end-->
-
-        <div class="color-bar">
+            <div class="color-bar"></div>
         </div>
-    </div>
 
 
-    <!--cover start-->
-
-    <div class="jumbotron">
-        <div class="bg"></div>
-        <div class="bg"></div>
-        <div class="bg"></div>
-        <div class="bg"></div>
-        <div class="bg"></div>
-        <div class="bg"></div>
-        <div class="black-block">
-            <div class="wrap">
-                <div class="search">
-                    <input type="text" class="searchTerm" placeholder="What are you looking for?">
-                    <button type="submit" class="searchButton">
+        <!--cover start-->
+        <div class="jumbotron">
+            <div class="bg"></div>
+            <div class="bg"></div>
+            <div class="bg"></div>
+            <div class="bg"></div>
+            <div class="bg"></div>
+            <div class="bg"></div>
+            <div class="black-block">
+                <div class="wrap">
+                    <div class="search">
+                        <input type="text" class="searchTerm" placeholder="What are you looking for?">
+                        <button type="submit" class="searchButton">
         <i class="fa fa-search"></i>
      </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
 
@@ -61,64 +316,64 @@
 
     <!--browse-section start-->
     <div class="body-container">
-        <section class="browse-1">
-            <h2 class="subtitle">Header</h2>
-            <div class="row">
-                <div class="col-lg-3">
-                    <img src="./img/cover-1.jpg" class="img-responsive inline" alt="" />
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque similique officia vel unde ut molestiae
-                        numquam odit quis porro cupiditate, aut aspernatur dicta asperiores quae saepe iusto, doloremque,
-                        repellat iure dolore quos! Atque delectus eaque laudantium natus nam doloribus molestias accusantium
-                        veritatis consequatur, veniam provident quidem pariatur suscipit, corporis rerum.</p>
+        <div class="browse-container">
+            <section class="browse-1">
+                <h2 class="subtitle">Header</h2>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <img src="./img/cover-1.jpg" class="img-responsive inline" alt="" />
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque similique officia vel unde ut molestiae
+                            numquam odit quis porro cupiditate, aut aspernatur dicta asperiores quae saepe iusto, doloremque,
+                            repellat iure dolore quos! Atque delectus eaque laudantium natus nam doloribus molestias accusantium
+                            veritatis consequatur, veniam provident quidem pariatur suscipit, corporis rerum.</p>
+                    </div>
+                    <div class="col-lg-3">
+                        <img src="./img/cover-1.jpg" class="img-responsive inline" alt="" />
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque similique officia vel unde ut molestiae
+                            numquam odit quis porro cupiditate, aut aspernatur dicta asperiores quae saepe iusto, doloremque,
+                            repellat iure dolore quos! Atque delectus eaque laudantium natus nam doloribus molestias accusantium
+                            veritatis consequatur, veniam provident quidem pariatur suscipit, corporis rerum.</p>
+                    </div>
+                    <div class="col-lg-3">
+                        <img src="./img/cover-1.jpg" class="img-responsive inline" alt="" />
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque similique officia vel unde ut molestiae
+                            numquam odit quis porro cupiditate, aut aspernatur dicta asperiores quae saepe iusto, doloremque,
+                            repellat iure dolore quos! Atque delectus eaque laudantium natus nam doloribus molestias accusantium
+                            veritatis consequatur, veniam provident quidem pariatur suscipit, corporis rerum.</p>
+                    </div>
                 </div>
-                <div class="col-lg-3">
-                    <img src="./img/cover-1.jpg" class="img-responsive inline" alt="" />
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque similique officia vel unde ut molestiae
-                        numquam odit quis porro cupiditate, aut aspernatur dicta asperiores quae saepe iusto, doloremque,
-                        repellat iure dolore quos! Atque delectus eaque laudantium natus nam doloribus molestias accusantium
-                        veritatis consequatur, veniam provident quidem pariatur suscipit, corporis rerum.</p>
-                </div>
-                <div class="col-lg-3">
-                    <img src="./img/cover-1.jpg" class="img-responsive inline" alt="" />
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque similique officia vel unde ut molestiae
-                        numquam odit quis porro cupiditate, aut aspernatur dicta asperiores quae saepe iusto, doloremque,
-                        repellat iure dolore quos! Atque delectus eaque laudantium natus nam doloribus molestias accusantium
-                        veritatis consequatur, veniam provident quidem pariatur suscipit, corporis rerum.</p>
+            </section>
+            <section class="browse-1">
+                <h2 class="subtitle">Header</h2>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <img src="./img/cover-1.jpg" class="img-responsive inline" alt="" />
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque similique officia vel unde ut molestiae
+                            numquam odit quis porro cupiditate, aut aspernatur dicta asperiores quae saepe iusto, doloremque,
+                            repellat iure dolore quos! Atque delectus eaque laudantium natus nam doloribus molestias accusantium
+                            veritatis consequatur, veniam provident quidem pariatur suscipit, corporis rerum.</p>
+                    </div>
+                    <div class="col-lg-3">
+                        <img src="./img/cover-1.jpg" class="img-responsive inline" alt="" />
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque similique officia vel unde ut molestiae
+                            numquam odit quis porro cupiditate, aut aspernatur dicta asperiores quae saepe iusto, doloremque,
+                            repellat iure dolore quos! Atque delectus eaque laudantium natus nam doloribus molestias accusantium
+                            veritatis consequatur, veniam provident quidem pariatur suscipit, corporis rerum.</p>
+                    </div>
+                    <div class="col-lg-3">
+                        <img src="./img/cover-1.jpg" class="img-responsive inline" alt="" />
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque similique officia vel unde ut molestiae
+                            numquam odit quis porro cupiditate, aut aspernatur dicta asperiores quae saepe iusto, doloremque,
+                            repellat iure dolore quos! Atque delectus eaque laudantium natus nam doloribus molestias accusantium
+                            veritatis consequatur, veniam provident quidem pariatur suscipit, corporis rerum.</p>
+                    </div>
+
                 </div>
 
-            </div>
-
+        </div>
+        </section>
     </div>
-    </section>
-    <section class="browse-1">
-        <h2 class="subtitle">Header</h2>
-        <div class="row">
-            <div class="col-lg-3">
-                <img src="./img/cover-1.jpg" class="img-responsive inline" alt="" />
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque similique officia vel unde ut molestiae numquam
-                    odit quis porro cupiditate, aut aspernatur dicta asperiores quae saepe iusto, doloremque, repellat iure
-                    dolore quos! Atque delectus eaque laudantium natus nam doloribus molestias accusantium veritatis consequatur,
-                    veniam provident quidem pariatur suscipit, corporis rerum.</p>
-            </div>
-            <div class="col-lg-3">
-                <img src="./img/cover-1.jpg" class="img-responsive inline" alt="" />
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque similique officia vel unde ut molestiae numquam
-                    odit quis porro cupiditate, aut aspernatur dicta asperiores quae saepe iusto, doloremque, repellat iure
-                    dolore quos! Atque delectus eaque laudantium natus nam doloribus molestias accusantium veritatis consequatur,
-                    veniam provident quidem pariatur suscipit, corporis rerum.</p>
-            </div>
-            <div class="col-lg-3">
-                <img src="./img/cover-1.jpg" class="img-responsive inline" alt="" />
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque similique officia vel unde ut molestiae numquam
-                    odit quis porro cupiditate, aut aspernatur dicta asperiores quae saepe iusto, doloremque, repellat iure
-                    dolore quos! Atque delectus eaque laudantium natus nam doloribus molestias accusantium veritatis consequatur,
-                    veniam provident quidem pariatur suscipit, corporis rerum.</p>
-            </div>
 
-        </div>
-
-        </div>
-    </section>
     <!--browse-section end-->
     </div>
 
@@ -128,7 +383,25 @@
         <div class="copyright"><span style="margin:5px;">InterFang</span><i class="fa fa-1x fa-copyright"></i></div>
     </footer>
     <!--footer end-->
+    </div>
 
+    <!--Login modal start-->
+    <input type="checkbox" name="dialog_state" id="dialog_state" class="dialog_state">
+    <div id='dialog'>
+        <label id="dlg-back" for="dialog_state"></label>
+        <div id='dlg-wrap'>
+            <label id="dlg-close" for="dialog_state"><i class="icon ion-ios-close-empty"></i></label>
+            <h2 id='dlg-header'>Login Page</h2>
+            <div id='dlg-content'>
+                帳號<input type="text"><br> 密碼
+                <input type="text"></div>
+            <div id='dlg-prompt'>
+                <div class='button positive'><i class="icon ion-ios-checkmark-empty"></i> Login</div>
+                <div class='button'><i class="icon ion-ios-close-empty"></i>Login with Facebook</div>
+            </div>
+        </div>
+    </div>
+    <!--Login modal end-->
 
 </body>
 
