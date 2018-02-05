@@ -22,3 +22,7 @@ function changeBg() {
     bgs[index].style.opacity = 1;
 
 }
+
+function login() {
+
+}
