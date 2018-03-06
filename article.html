@@ -6,16 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>InterFang | POST</title>
-    <link rel="stylesheet" href="./post.css">
+    <link rel="stylesheet" href="./article.css">
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <!-- Quill v1.0.0 -->
-    <script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
-    <script src="https://cdn.quilljs.com/1.0.0/quill.min.js"></script>
-    <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
-    <link href="https://cdn.quilljs.com/1.0.0/quill.bubble.css" rel="stylesheet">
-
 </head>
-
 
 <body>
     <!--navbar start-->
@@ -27,7 +20,6 @@
                     <span><a href="#">POST</a></span>
             <span><a href="#">CHAT</a></span>
             <span><a href="#">PROFILE</a></span>
-            <span><a href="#">ARTICLE</a></span>
             <span> <main id='main' class='main_area'>
             <label class="button" for="dialog_state"><i class="icon ion-ios-upload-outline"></i> Login</label>
         <div id='console'></div>
@@ -36,20 +28,52 @@
     </nav>
     <!--navbar end-->
 
-    <!--post a new post start-->
     <div class="body-container">
+        <!--post a new post start-->
         <div class="post-row">
             <div class="col-lg-6">
-                <!--text editor start-->
-                <div class="editor-container">
-                    <input type="text" class="post-title" placeholder="輸入標題">
-                    <input type="text" class="post-tag" placeholder="輸入文章分類標籤">
-                    <input type="date" class="post-date" placeholder="發文日期">
-                    <div id="editor" style="background: pink">
-                        <p>Hello World</p>
+                <!--main post start-->
+                <div class="article-head">
+                    <span><h1 class="article-title">ARTICLE TITLE</h1></span><span class="article-date">2018/03/06</span>
+                </div>
+
+                <div class="article-img">
+                    <img src="./img/cover-3.jpg" id="article-img" alt="article-image">
+                </div>
+                <div class="article-content">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit quis, atque! Et enim asperiores cum veniam voluptatem,
+                    cupiditate accusantium adipisci dignissimos, laudantium, laborum nisi culpa architecto, hic facilis nulla
+                    nesciunt porro voluptatibus impedit explicabo! Ratione dolorem assumenda eligendi? Necessitatibus perferendis,
+                    commodi, natur consequatur nesciunt mollitia error nostrum facilis. Ab, a dolor modi facere fugiat nisi
+                    autem inventore soluta tempore illo illum voluptates vitae, aliquam, consectetur incidunt eligendi eveniet
+                    cupiditate consequuntur ut, ex sint
+                </div>
+                <!--main post end-->
+                <!--comment part start-->
+                <h2 class="comment-title">留言板</h2>
+                <div class="decoration"></div>
+                <div class="comment-container">
+                    <div class="single-comment-part">
+                        <span class="comment-left-container">
+                            <img src="./img/gray.jpg" width="200px" alt="使用者大頭照">
+                        </span><span class="comment-right-container">
+                        <div class="comment-name">John</div>
+                        <span class="comment-comment">Lorem ipsum dolor sit amet  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam tempora a corporis, dolore, alias consequatur cupiditate adipisci accusantium animi! Ipsam magni dolores labore et veritatis, ab quasi, tempora dicta excepturi omnis dolore ea fugiat, accusantium! A recusandae sapiente ad, ex eligendi numquam quas tenetur eos ratione sint iure omnis minus beatae. Nulla harum, in expedita? Sed illum sunt expedita accusantium eligendi laboriosam! Veritatis excepturi ratione quod eveniet quisquam culpa deserunt totam exercitationem, impedit ex voluptatibus voluptatum eaque facere beatae vitae ut. Quos ducimus placeat ratione, at, odit deleniti dignissimos nisi autem aut voluptates earum molestias maxime, iste veniam voluptate tempore, quasi officia sint hic beatae! Obcaecati a repellendus dolores dolorum, soluta fugit! Odio, adipisci fugit. Magni velit cumque, accusantium consequatur non id consequuntur nobis sit ad. Libero ea, earum nobis. Quia perferendis blanditiis molestiae earum neque beatae est architecto cum vero tempore rerum rem quisquam amet sunt assumenda nulla tenetur, nesciunt, distinctio deserunt, quasi perspiciatis, eligendi veritatis accusamus deleniti. Blanditiis amet sequi repudiandae libero enim voluptates. Laborum libero saepe officia. Saepe dolores doloremque cupiditate, voluptatibus, eum harum ex eveniet aliquid delectus repellat autem provident optio. Minima, debitis dolorum voluptate expedita consequatur, nam ducimus inventore, libero, similique error ullam repellat cupiditate.  dolor sit amet, consectetur adipisicing elit. Dolore, cumque.</span>
+                        </span>
                     </div>
                 </div>
-                <!--text editor end-->
+
+                <div class="comment-container">
+                    <div class="single-comment-part">
+                        <span class="comment-left-container">
+                            <img src="./img/gray.jpg" width="200px" alt="使用者大頭照">
+                        </span><span class="comment-right-container">
+                        <div class="comment-name">John</div>
+                        <span class="comment-comment">Lorem ipsum dolor sit amet  dolor sit amet, consectetur adipisicing elit. Dolore, cumque.</span>
+                        </span>
+                    </div>
+                </div>
+                <!--comment part end-->
             </div>
             <!--post a new post end-->
 
@@ -114,40 +138,8 @@
                     </div>
                 </div>
             </div>
+            <!--rightside-column end-->
         </div>
-    </div>
-    <!--rightside-column end-->
-
-
-    <!--footer start-->
-    <footer class="footer-container">
-        <div class="copyright"><span style="margin:5px;">InterFang</span><i class="fa fa-1x fa-copyright"></i></div>
-    </footer>
-    <!--footer end-->
-
-    <script>
-        var quill = new Quill("#editor", {
-            theme: "snow", // 模板
-            modules: {
-                toolbar: [
-                    // 工具列列表[註1]
-                    ['bold', 'italic', 'underline', 'strike'], // 粗體、斜體、底線和刪節線
-                    ['blockquote', 'code-block'], // 區塊、程式區塊
-                    [{ 'header': 1 }, { 'header': 2 }], // 標題1、標題2
-                    [{ 'list': 'ordered' }, { 'list': 'bullet' }], // 清單
-                    [{ 'script': 'sub' }, { 'script': 'super' }], // 上標、下標
-                    [{ 'indent': '-1' }, { 'indent': '+1' }], // 縮排
-                    [{ 'direction': 'rtl' }], // 文字方向
-                    [{ 'size': ['small', false, 'large', 'huge'] }], // 文字大小
-                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],// 標題
-                    [{ 'color': [] }, { 'background': [] }], // 顏色
-                    [{ 'font': [] }], // 字體
-                    [{ 'align': [] }], // 文字方向
-                    ['clean'] // 清除文字格是
-                ]
-            }
-        });
-    </script>
 </body>
 
 </html>

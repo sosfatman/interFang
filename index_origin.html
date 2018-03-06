@@ -197,6 +197,13 @@
         line-height: inherit;
         font-size: 1.75em;
     }
+
+    body {
+        font: 400 16px/1.65em Open Sans, Arial, Sans-Serif;
+        letter-spacing: -0.015em;
+        color: #303030;
+        text-align: center;
+    }
     /*
         #main {
             height: 100vh;
@@ -258,36 +265,51 @@
 </style>
 
 <body>
+    <div id="main">
+        <!--navbar start-->
+        <nav>
+            <div class="navbar-row">
+                <span class="logo"><img src="./img/logo.png"  height="50px" alt="logo"></span>
+                <span class="search-container">
+                    <form action="/action_page.php">
+                        <input type="text" placeholder="Search.." name="search">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                </span>
 
-    <!--navbar start-->
-    <nav>
-        <div class="navbar-row">
-            <span class="logo"><img src="./img/logo.png"  height="50px" alt="logo"></span>
-            <span class="searchbar"><input type="text" placeholder="Search.."></span>
-            <span class="navbar">
+                <span class="navbar">
                     <span><a href="#">POST</a></span>
-            <span><a href="#">CHAT</a></span>
-            <span><a href="#">PROFILE</a></span>
-            <span> <main id='main' class='main_area'>
-            <label class="button" for="dialog_state"><i class="icon ion-ios-upload-outline"></i> Login</label>
+                <span><a href="#">CHAT</a></span>
+                <span><a href="#">PROFILE</a></span>
+                <span> <main id='main' class='main_area'>
+            <label class="button" for="dialog_state"><i class="icon ion-ios-upload-outline
+      "></i> Login</label>
+     
         <div id='console'></div>
     </main></span>
+            </div>
+        </nav>
+        <!--navbar end-->
+        <div class="body-container">
+
+            <!--  <div class="color-bar"></div>-->
+
         </div>
-    </nav>
-    <!--navbar end-->
 
-    <!--cover start-->
-    <span class="mask">WELCOME</span>
-    <div class="jumbotron">
-        <div class="bg"></div>
-        <div class="bg"></div>
-        <div class="bg"></div>
-        <div class="bg"></div>
-        <div class="bg"></div>
-        <div class="bg"></div>
+
+        <!--cover start-->
+        <div class="jumbotron">
+            <div class="bg"></div>
+            <div class="bg"></div>
+            <div class="bg"></div>
+            <div class="bg"></div>
+            <div class="bg"></div>
+            <div class="bg"></div>
+            <div class="black-block">
+
+            </div>
+        </div>
     </div>
-
-
     <!--cover end-->
 
     <!--browse-section start-->
@@ -313,12 +335,24 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <img src="./img/cover-1.jpg" class="img-responsive inline" alt="" />
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque similique officia vel unde ut molestiae
+                            numquam odit quis porro cupiditate, aut aspernatur dicta asperiores quae saepe iusto, doloremque,
+                            repellat iure dolore quos! Atque delectus eaque laudantium natus nam doloribus molestias accusantium
+                            veritatis consequatur, veniam provident quidem pariatur suscipit, corporis rerum.</p>
                     </div>
                     <div class="col-lg-3">
                         <img src="./img/cover-1.jpg" class="img-responsive inline" alt="" />
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque similique officia vel unde ut molestiae
+                            numquam odit quis porro cupiditate, aut aspernatur dicta asperiores quae saepe iusto, doloremque,
+                            repellat iure dolore quos! Atque delectus eaque laudantium natus nam doloribus molestias accusantium
+                            veritatis consequatur, veniam provident quidem pariatur suscipit, corporis rerum.</p>
                     </div>
                     <div class="col-lg-3">
                         <img src="./img/cover-1.jpg" class="img-responsive inline" alt="" />
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque similique officia vel unde ut molestiae
+                            numquam odit quis porro cupiditate, aut aspernatur dicta asperiores quae saepe iusto, doloremque,
+                            repellat iure dolore quos! Atque delectus eaque laudantium natus nam doloribus molestias accusantium
+                            veritatis consequatur, veniam provident quidem pariatur suscipit, corporis rerum.</p>
                     </div>
 
                 </div>
