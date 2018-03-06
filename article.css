@@ -1,0 +1,194 @@
+body{
+    height: 100%;
+}
+ 
+* {
+    padding: 0;
+    margin:0;
+}
+
+.logo{
+    line-height: 50px;
+}
+
+.logo>img{
+    margin: 5px;
+    float: left;
+}
+
+.searchbar > input{
+    width:30%;
+    height:30px;
+    line-height: 30px;
+}
+
+
+.navbar{
+    float:right;
+}
+
+.navbar-row{
+    height:50px;
+    background-color: #2ec4b6;
+}
+
+.navbar > span{
+    float:left;
+    display:inline-block;
+    margin:0px 10px 0px 10px;
+    border-radius:5px;
+    height:50px;
+    line-height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width:80px;
+    text-align: center;
+}
+
+.navbar>span>a{
+     color:gray;
+     text-decoration: none;
+}
+
+.body-container{
+    margin-left:calc(100%*1/12);
+    margin-right:calc(100%*1/12);
+}
+
+.post-row{
+    display: inline-block;
+width: 100%;
+padding-top:20px;
+}
+
+.col-lg-3{
+    vertical-align: top;
+    display:table-cell;
+    width: calc(100%*4/12);
+    height:auto;
+    padding:10px;
+}
+
+.right-col-img{
+    width: 100%;
+}
+
+.col-lg-6{
+     vertical-align: top;
+    display: table-cell;
+    width: calc(100%*8/12);
+    height: auto;
+    padding:10px;
+}
+
+.article-title-container{
+     display: inline-block;
+     width:100%;
+}
+
+.article-head{
+    display: inline-block;
+    width:100%;
+    line-height: 40px;
+    height:40px;
+}
+
+.article-title{
+    display: inline-block;
+    height:auto;
+    width:auto;
+    margin-right:10px;
+}
+
+.article-date{
+    display: inline-block;
+    width:auto;
+    height:auto;
+}
+
+.comment-title{
+    margin:5px;
+}
+
+.comment-container{
+    display: block;
+    width:100%;
+    height:auto;
+    padding:5px;
+}
+
+.single-comment-part{
+    display: block;
+}
+
+.comment-left-container{
+  display: inline-block;
+  width:20%;
+  height:auto;
+  vertical-align: top;
+
+}
+
+.comment-left-container>img{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+}
+
+.comment-name{
+    margin-bottom:5px;
+    font-weight:900;
+    font-size:20px;
+}
+
+.comment-comment{
+    display: block;
+    width:90%;
+    height:100px;
+    overflow: scroll;
+    border:1px solid black;
+}
+
+.comment-right-container{
+display: inline-block;
+  width:80%;
+  height:auto;
+  vertical-align: top;
+}
+
+.decoration{
+    display: block;
+    width:80%;
+    text-align: center;
+     display: flex;
+    flex-direction: column;
+    justify-content: center;
+background-color: #2ec4b6;
+height:3px;
+margin: 5px;
+}
+
+.tags{
+    display: table-cell;
+    background-color: gray;
+    width:auto;
+    height:35px;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+     display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#article-img{
+    text-align: center;
+    width:100%;
+    border:5px solid black;
+}
+
+.searchTerm{
+    height:30px;
+    width:100%;
+}
